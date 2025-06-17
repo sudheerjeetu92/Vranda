@@ -30,7 +30,7 @@ export const loginUser = createAsyncThunk(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
         userData
       );
-    //   console.log(typeof(response.data.user));
+      //   console.log(typeof(response.data.user));
 
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       localStorage.setItem("userToken", response.data.token);
@@ -48,14 +48,14 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     // console.log("dsd",userData);
     try {
-        const response = await axios.post(
-            `${import.meta.env.VITE_BACKEND_URL}/api/users/register`,
-            userData
-        );
-        // console.log("dsd",response);
-      
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/register`,
+        userData
+      );
+
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       localStorage.setItem("userToken", response.data.token);
+      // console.log("dsd",response);
       return response.data.user; // Return the user object from the response
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -88,7 +88,8 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.user = action.payload; // ✅ Set the logged-in user
+        state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -100,7 +101,8 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.user = action.payload; // ✅ Set the registered user
+        state.error = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;

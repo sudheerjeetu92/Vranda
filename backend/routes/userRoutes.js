@@ -26,7 +26,7 @@ router.post("/register", async (req, res) => {
     //     },
     // });
 
-    // creat JWT Payload
+    // create JWT Payload
     const payload = { user: { id: user._id, role: user.role } };
     // console.log("wece",payload);
 
@@ -63,9 +63,9 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     let user = await User.findOne({ email });
-    // console.log(user);
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
     const isMatch = await user.matchPassword(password);
+    // console.log(isMatch);
     if (!isMatch)
       return res.status(400).json({ message: "Invalid credentials" });
 
@@ -98,7 +98,7 @@ router.post("/login", async (req, res) => {
 });
 
 // @route GET /api/users/profile
-// @desc get logged-in user's profile(protexted  Route)
+// @desc get logged-in user's profile(protected  Route)
 // @access Private
 
 router.get("/profile", protect ,  async (req, res) => {

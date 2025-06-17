@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
         cart.products.push({
           productId,
           name: product.name,
-          image: product.image[0].url,
+          image: product.images[0].url,
           price: product.price,
           size,
           color,
@@ -186,6 +186,7 @@ router.get("/", async (req, res) => {
 router.post("/merge", protect, async (req, res) => {
   const { guestId } = req.body;
   try {
+    // finf the guest cart and user cart
     const guestCart = await Cart.findOne({ guestId });
     const userCart = await Cart.findOne({ user: req.user._id });
 
@@ -195,6 +196,7 @@ router.post("/merge", protect, async (req, res) => {
       }
 
       if (userCart) {
+        //Merge guest cart into user cart
         guestCart.products.forEach((guestItem) => {
           const productIndex = userCart.products.findIndex(
             (item) =>

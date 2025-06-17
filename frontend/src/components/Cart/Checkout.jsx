@@ -1,28 +1,33 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PayPalButton from "./PayPalButton";
+import { useDispatch, useSelector } from "react-redux";
 
-const cart = {
-  products: [
-    {
-      name: "Stylish Jacket",
-      size: "M",
-      color: "Black",
-      price: 120,
-      image: "https://picsum.photos/150?random=1",
-    },
-    {
-      name: "Casual Sneakers",
-      size: "42",
-      color: "White",
-      price: 76,
-      image: "https://picsum.photos/150?random=1",
-    },
-  ],
-  totalPrice: 195,
-};
+// const cart = {
+//   products: [
+//     {
+//       name: "Stylish Jacket",
+//       size: "M",
+//       color: "Black",
+//       price: 120,
+//       image: "https://picsum.photos/150?random=1",
+//     },
+//     {
+//       name: "Casual Sneakers",
+//       size: "42",
+//       color: "White",
+//       price: 76,
+//       image: "https://picsum.photos/150?random=1",
+//     },
+//   ],
+//   totalPrice: 195,
+// };
 
 const CheckOut = () => {
+  const dispatch = useDispatch();
+
+  const { cart, loading, error } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [checkoutID, setCheckoutId] = useState(null);
   const [shippingAddress, setShippingAddress] = useState({
@@ -35,8 +40,25 @@ const CheckOut = () => {
     phone: "",
   });
 
+  //  ensure cart is not loaded before proceeding
+  useEffect(() => {
+    if (!cart || !cart.product || cart.product.length === 0) {
+      navigate("/");
+    }
+  });
+
   const handleCreateCheckout = (e) => {
     e.preventDefault();
+    if (cart && cart.products.length > 0) {
+      const res = dispatch(
+        createCheckout({
+          checkputItems: cart.products,
+          shippingAddress,
+          paymentMethod: "Paypal",
+          totalPrice: cart.totalPrice,
+        })
+      );
+    }
     setCheckoutId(123);
   };
 
@@ -218,16 +240,16 @@ const CheckOut = () => {
           ))}
         </div>
         <div className="flex justify-between items-center text-lg mb-4">
-          <p >Sub Total</p>
-          <p >{cart.totalPrice.toLocaleString()}</p>
+          <p>Sub Total</p>
+          <p>{cart.totalPrice.toLocaleString()}</p>
         </div>
         <div className="flex justify-between items-center text-lg">
-          <p >Shipping</p>
-          <p >Free</p>
+          <p>Shipping</p>
+          <p>Free</p>
         </div>
         <div className="flex justify-between items-center text-lg mb-4 border-t pt-4">
-          <p >Total</p>
-          <p >Rs {cart.totalPrice?.toLocaleString()}</p>
+          <p>Total</p>
+          <p>Rs {cart.totalPrice?.toLocaleString()}</p>
         </div>
       </div>
     </div>
