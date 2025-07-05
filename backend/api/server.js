@@ -1,17 +1,17 @@
 const dotenv =require("dotenv");
 const express = require("express");
 const cors =require("cors");
-const connectDB = require("./config/db");
-const userRoutes = require("./routes/userRoutes");
-const productRoutes = require("./routes/productRoutes");
-const cartRoutes = require("./routes/cartRoutes");
-const checkoutRoutes = require("./routes/checkoutRoutes");
-const orderRoutes = require("./routes/orderRoutes");
-const uploadRoutes = require("./routes/uploadRoutes");
-const adminRoutes = require("./routes/adminRoutes");
-const productAdminRoutes = require("./routes/productAdminRoutes");
-const adminOrderRoutes = require("./routes/adminOrderRoutes");
-const paymentRoutes = require("./routes/payments.routes");
+const connectDB = require("../config/db");
+const userRoutes = require("../routes/userRoutes");
+const productRoutes = require("../routes/productRoutes");
+const cartRoutes = require("../routes/cartRoutes");
+const checkoutRoutes = require("../routes/checkoutRoutes");
+const orderRoutes = require("../routes/orderRoutes");
+const uploadRoutes = require("../routes/uploadRoutes");
+const adminRoutes = require("../routes/adminRoutes");
+const productAdminRoutes = require("../routes/productAdminRoutes");
+const adminOrderRoutes = require("../routes/adminOrderRoutes");
+const paymentRoutes = require("../routes/payments.routes");
 
 
 const app= express();
@@ -42,5 +42,5 @@ app.use("/api/admin/products", productAdminRoutes);
 app.use("/api/admin/orders", adminOrderRoutes);
 
 app.listen(PORT,()=>{
-    console.log(`server is running on http:/localhost:${PORT}`);
+    console.log(`server is running on ${process.env.NODE_ENV=== 'production'? 'https': 'http'}://localhost:${PORT}`);
 });
