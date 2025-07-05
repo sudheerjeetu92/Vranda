@@ -13,15 +13,14 @@ const router = express.Router();
 router.post("/", protect, async (req, res) => {
   const { checkoutItems, shippingAddress, paymentMethod, totalPrice } =
     req.body;
-    if (!checkoutItems || checkoutItems.length === 0) {
-      return res.status(400).json({ message: "No items in checkout" });
-    }
+  if (!checkoutItems || checkoutItems.length === 0) {
+    return res.status(400).json({ message: "No items in checkout" });
+  }
 
   try {
     // create a new checkout session
     const newCheckout = await Checkout.create({
       user: req.user._id,
-
       checkoutItems,
       shippingAddress,
       paymentMethod,
@@ -29,7 +28,7 @@ router.post("/", protect, async (req, res) => {
       paymentStatus: "Pending",
       isPaid: false,
     });
-    console.log(`Checkout created for user : ${req.user._id}`);
+    // console.log(`Checkout created for user : ${req.user._id}`);
     res.status(201).json(newCheckout);
   } catch (error) {
     console.error("Error creating checkout session", error);
@@ -40,7 +39,7 @@ router.post("/", protect, async (req, res) => {
 // @route POST / api/ checkout/:id/pay
 // @desc update checkout to mark as paid after successful payment
 // @access Private
-router.post("/:id/pay", protect, async (req, res) => {
+router.put("/:id/pay", protect, async (req, res) => {
   const { paymentStatus, paymentDetails } = req.body;
   // console.log(paymentDetails);
   try {
@@ -73,7 +72,7 @@ router.post("/:id/finalize", protect, async (req, res) => {
     if (!checkout) {
       res.status(404).json({ message: "Checkout not found" });
     }
-    if (checkout.isPaid && !checkout.isFinalized) {
+    if (checkout.isPaid) {
       // create final order based on checkout details
       const finalOrder = await Order.create({
         user: checkout.user,
@@ -95,7 +94,7 @@ router.post("/:id/finalize", protect, async (req, res) => {
       await Cart.findOneAndDelete({ user: checkout.user });
       res.status(201).json(finalOrder);
     } else if (checkout.isFinalized) {
-      console.log(typeof({ user: checkout.user }));
+      console.log(typeof { user: checkout.user });
       res.status(400).json({ message: "Checkout already finalized" });
     } else {
       res.status(400).json({ message: "Checkout is not paid" });

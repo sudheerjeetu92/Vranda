@@ -14,6 +14,7 @@ const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [navDrawerOpen, setNavDrawerOpen] = useState(false);
   const { cart } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.auth);
 
   const cartItemCount =
     cart?.products?.reduce((total, product) => total + product.quantity, 0) ||
@@ -34,7 +35,7 @@ const Navbar = () => {
             Vrindavan
           </Link>
         </div>
-
+        {/* // center navigation */}
         <div className="hidden md:flex space-x-6 ">
           <Link
             to="/collections/all?gender=Men"
@@ -61,15 +62,17 @@ const Navbar = () => {
             Bottom Wear
           </Link>
         </div>
-
         {/* right icons */}
         <div className="flex items-center space-x-4">
-          <Link
-            to="/admin"
-            className="block bg-black text-white px-2 mx-2 rounded text-sm"
-          >
-            Admin
-          </Link>
+          {user && user.role === "admin" && (
+            <Link
+              to="/admin"
+              className="block bg-black text-white px-2 mx-2 rounded text-sm"
+            >
+              Admin
+            </Link>
+          )}
+
           <Link to="/profile" className="hover:text-black">
             <HiOutlineUser className="h-6 w-6 text-gray-700 " />
           </Link>
@@ -88,8 +91,9 @@ const Navbar = () => {
           </button>
 
           {/* search */}
-          <div className="overflow-hidden"></div>
-          <SearchBar />
+          <div className="overflow-hidden">
+            <SearchBar />
+          </div>
           <button onClick={togglerNavDrawer} className="md:hidden">
             <HiBars3BottomRight className="h-6 w-6 text-gray-700" />
           </button>
@@ -101,7 +105,7 @@ const Navbar = () => {
       {/* mobile- navigation */}
       <div
         className={`fixed bg-white top-0 left-0  w-3/4  sm:w-1/2 md:w-1/3 h-full shadow-lg transform  transition-transform duration-300 z-50 ${
-          navDrawerOpen ? "translate-0" : "-translate-x-full"
+          navDrawerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex justify-end p-4 ">

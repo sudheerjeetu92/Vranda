@@ -43,6 +43,7 @@ export const addToCart = createAsyncThunk(
         `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
         { productId, quantity, size, color, guestId, userId }
       );
+      // console.log("cs46",response.data)
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

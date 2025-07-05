@@ -11,6 +11,7 @@ const CartDrawer = ({ drawerOpen, togglerCartOpen }) => {
   const userId = user ? user._id : null;
   const handleCheckout = () => {
     togglerCartOpen();
+    // console.log("cd14",user);
     if (!user) {
       navigate("/login?redirect=checkout");
     } else {

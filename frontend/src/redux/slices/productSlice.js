@@ -39,7 +39,6 @@ export const fetchProductsByFilters = createAsyncThunk(
     return response.data;
   }
 );
-
 // Async thunk to fetch a single product by Id
 
 export const fetchProductDetails = createAsyncThunk(
@@ -48,6 +47,7 @@ export const fetchProductDetails = createAsyncThunk(
     const response = await axios.get(
       `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`
     );
+    // console.log("ps51",response.data)
     return response.data;
   }
 );
@@ -160,7 +160,7 @@ const productsSlice = createSlice({
         state.loading = false;
         const updatedProduct = action.payload;
         const index = state.products.findIndex(
-          (product) => product.id === updateProduct.id
+          (product) => product.id === updatedProduct.id
         );
         if (index !== -1) {
           state.products[index] = updatedProduct;

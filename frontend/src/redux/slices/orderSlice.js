@@ -25,7 +25,7 @@ export const fetchUserOrders = createAsyncThunk(
 // Async thunk to fetch orders details by ID
 export const fetchOrderDetails = createAsyncThunk(
   "orders/fetchOrderDetails",
-  async (fetchOrderDetails, { rejectWithValue }) => {
+  async (orderId, { rejectWithValue }) => {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/orders/${orderId}`,

@@ -1,20 +1,33 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const ProductManagement = () => {
-  const products = [
-    {
-      _id: 123123,
-      name: "Shirt",
-      price: 110,
-      sku: "123123123",
-    },
-  ];
+import { useDispatch, useSelector } from "react-redux";
 
-  const handleDelete=(id)=>{
-    if(window.confirm("Are you sure you want to delete the Product?")){
-        console.log("Delete product with Id",id)
+import {
+  fetchAdminProducts,
+  deleteProduct,
+} from "../../redux/slices/adminProductSlice";
+
+const ProductManagement = () => {
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector(
+    (state) => state.adminProducts
+  );
+
+  useEffect(() => {
+    dispatch(fetchAdminProducts());
+  },[dispatch]);
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete the Product?")) {
+      // console.log("Delete product with Id", id);
+      dispatch(deleteProduct(id));
     }
-  }
+  };
+
+  if (loading) return <p>Loading..</p>;
+  if (error) return <p>Error:{error}</p>;
+
   return (
     <div className="max-w-7xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6">Product Management</h2>
@@ -44,14 +57,25 @@ const ProductManagement = () => {
                     <Link
                       to={`/admin/products/${product._id}/edit`}
                       className="bg-yellow-500 text-white px-2 py-1 rounded mr-2 hover:bg-yellow-600"
-                    >Edit</Link>
-                    <button onClick={()=>{handleDelete(product._id)}} className="bg-red-500 text-white px-2 py-1 rounded mr-2 hover:bg-red-600">Delete</button>
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => {
+                        handleDelete(product._id);
+                      }}
+                      className="bg-red-500 text-white px-2 py-1 rounded mr-2 hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={4} className="p-4 text-center text-gray-500">No product found</td>
+                <td colSpan={4} className="p-4 text-center text-gray-500">
+                  No product found
+                </td>
               </tr>
             )}
           </tbody>
@@ -62,3 +86,12 @@ const ProductManagement = () => {
 };
 
 export default ProductManagement;
+
+// const products = [
+//     {
+//       _id: 123123,
+//       name: "Shirt",
+//       price: 110,
+//       sku: "123123123",
+//     },
+//   ];

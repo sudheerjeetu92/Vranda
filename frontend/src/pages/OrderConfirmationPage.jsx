@@ -1,39 +1,30 @@
-const checkout = {
-  _id: "12323",
-  createdAt: new Date(),
-  checkoutItems: [
-    {
-      productId: "1",
-      name: "Stylish Jacket",
-      size: "M",
-      color: "Black",
-      price: 120,
-      quantity: 1,
-      image: "https://picsum.photos/150?random=1",
-    },
-    {
-      productId: "2",
-      name: "T-Shirt",
-      size: "L",
-      color: "Green",
-      price: 120,
-      quantity: 23,
-      image: "https://picsum.photos/150?random=1",
-    },
-  ],
-  shippingAddress: {
-    address: "123 fashion Street",
-    city: "Ney York",
-    country: "USA",
-  },
-};
-const calculateEstimateDelivery = (createdAt) => {
-  const orderDate = new Date(createdAt);
-  orderDate.setDate(orderDate.getDate() + 10); // add 10 days to the order date
-  return orderDate.toLocaleDateString();
-};
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
+import { clearCart } from "../redux/slices/cartSlice";
 
 const OrderConfirmationPage = () => {
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  const { checkout } = useSelector((state) => state.checkout);
+
+  // Clear the cart when order is confirm
+  useEffect(() => {
+    if (checkout && checkout._id) {
+      dispatch(clearCart());
+      localStorage.removeItem("cart");
+    } else {
+      navigate("/my-orders");
+    }
+  }, [checkout, dispatch, navigate]);
+
+  const calculateEstimateDelivery = (createdAt) => {
+    const orderDate = new Date(createdAt);
+    orderDate.setDate(orderDate.getDate() + 10); // add 10 days to the order date
+    return orderDate.toLocaleDateString();
+  };
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white">
       <h1 className="text-4xl font-bold  text-center text-emerald-700 mb-8">
@@ -85,7 +76,7 @@ const OrderConfirmationPage = () => {
             {/* ayment info */}
             <div>
               <h4 className="text-lg font-semibold mb-2">Payment</h4>
-              <p className="text-gray-600">PayPal</p>
+              <p className="text-gray-600">RazorPay</p>
             </div>
             {/* delivery info */}
             <div>
@@ -106,3 +97,33 @@ const OrderConfirmationPage = () => {
 };
 
 export default OrderConfirmationPage;
+
+// const checkout = {
+//   _id: "12323",
+//   createdAt: new Date(),
+//   checkoutItems: [
+//     {
+//       productId: "1",
+//       name: "Stylish Jacket",
+//       size: "M",
+//       color: "Black",
+//       price: 120,
+//       quantity: 1,
+//       image: "https://picsum.photos/150?random=1",
+//     },
+//     {
+//       productId: "2",
+//       name: "T-Shirt",
+//       size: "L",
+//       color: "Green",
+//       price: 120,
+//       quantity: 23,
+//       image: "https://picsum.photos/150?random=1",
+//     },
+//   ],
+//   shippingAddress: {
+//     address: "123 fashion Street",
+//     city: "Ney York",
+//     country: "USA",
+//   },
+// };

@@ -36,7 +36,7 @@ router.post("/", upload.single("image"), async (req, res) => {
         });
         //Use streamifier to convert file buffer to a stream
         streamifier.createReadStream(fileBuffer).pipe(stream);
-        console.log("it is",fileBuffer);
+        // console.log("upload39",fileBuffer);
       });
     };
     // call the streamUpload function

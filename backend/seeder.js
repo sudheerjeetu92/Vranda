@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const Product = require("./models/Product");
 const User = require("./models/User");
 const Cart = require("./models/Cart");
-const product = require("./data/products");
+const products = require("./data/products");
 dotenv.config();
 
 // connect to mongoDB
@@ -28,7 +28,7 @@ const seedData = async () => {
     // Assign the default user ID to each product
     const userID = createdUser._id;
 
-    const sampleProducts = product.map((product) => {
+    const sampleProducts = products.map((product) => {
       return { ...product, user:userID };
     });
 

@@ -96,12 +96,12 @@ const adminOrderSlice = createSlice({
       //update order  Status
       .addCase(updateOrderStatus.fulfilled, (state, action) => {
         const updateOrder = action.payload;
-        const orderIndex = state.orders.findIndex((order) => {
-          order._id === action.payload._id;
-          if (orderIndex !== -1) {
-            state.products[orderIndex] = updateOrder;
-          }
-        });
+        const orderIndex = state.orders.findIndex(
+          (order) => order._id === action.payload._id
+        );
+        if (orderIndex !== -1) {
+          state.orders[orderIndex] = updateOrder;
+        }
       })
       .addCase(deleteOrder.fulfilled, (state, action) => {
         state.orders = state.orders.filter(

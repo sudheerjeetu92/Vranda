@@ -12,7 +12,7 @@ const FilterSidebar = () => {
     material: [],
     brand: [],
     minPrice: 0,
-    maxPrice: 100,
+    maxPrice: 1000,
   });
 
   const [priceRange, setPriceRange] = useState([0, 100]);
@@ -64,9 +64,9 @@ const FilterSidebar = () => {
       material: params.material ? params.material.split(",") : [],
       brand: params.brand ? params.brand.split(",") : [],
       minPrice: params.minPrice || 0,
-      maxPrice: params.maxPrice || 100,
+      maxPrice: params.maxPrice || 1000,
     });
-    setPriceRange([0, params.maxPrice || 100]);
+    setPriceRange([0, params.maxPrice || 1000]);
   }, [searchParams]);
 
   const handleFilterChange = (e) => {
@@ -122,7 +122,7 @@ const FilterSidebar = () => {
 
   const handlePriceChange = (e) => {
     const newPrice = e.target.value;
-    setPriceRange([0, 100]);
+    setPriceRange([0, 1000]);
     const newFilters = { ...filters, minPrice: 0, maxPrice: newPrice };
     setFilters(newFilters);
     updateURLParams(newFilters);
@@ -253,7 +253,7 @@ const FilterSidebar = () => {
           type="range"
           name="priceRange"
           min={0}
-          max={100}
+          max={1000}
           value={priceRange[1]}
           onChange={handlePriceChange}
           className="w-full h-2 bg-gray-300 rounded-lg appearance-none"

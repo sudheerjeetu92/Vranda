@@ -12,7 +12,7 @@ export const fetchUsers = createAsyncThunk("admin/fetchUsers", async () => {
       },
     }
   );
-  response.data;
+  return response.data;
 });
 
 //Add the create user action
@@ -49,7 +49,7 @@ export const updateUser = createAsyncThunk(
         },
       }
     );
-    response.data;
+    return response.data.user;
   }
 );
 
@@ -91,26 +91,29 @@ const adminSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         const updateUser = action.payload;
-        const userIndex= state.users.findIndex(
-            (user)=>{user._id===updateUser._id}
-        )
-        state.users[userIndex] = updateUser;
+        const userIndex = state.users.findIndex(
+          (user) => user._id === updateUser._id
+        );
+        if (userIndex > -1) {
+          state.users[userIndex] = updateUser;
+        }
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
-        state.users= state.users.filter((user)=>user._id !==action.payload);
-        state.users = action.payload;
-      }).addCase(addUser.pending, (state) => {
+        state.users = state.users.filter((user) => user._id !== action.payload);
+        // state.users = action.payload;
+      })
+      .addCase(addUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(addUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.users.push(action.payload.user)
+        state.users.push(action.payload.user);
       })
       .addCase(addUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
-      })
+      });
   },
 });
 

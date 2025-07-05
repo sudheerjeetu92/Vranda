@@ -30,7 +30,7 @@ export const loginUser = createAsyncThunk(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
         userData
       );
-      //   console.log(typeof(response.data.user));
+      // console.log(typeof response.data.user);
 
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       localStorage.setItem("userToken", response.data.token);
@@ -85,14 +85,14 @@ const authSlice = createSlice({
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
-      })
+            })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload; // ✅ Set the logged-in user
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.loading = false;
+                state.loading = false;
         state.error = action.payload.message;
       })
       .addCase(registerUser.pending, (state) => {

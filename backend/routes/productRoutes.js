@@ -89,6 +89,7 @@ router.put("/:id", protect, admin, async (req, res) => {
       sku,
     } = req.body;
     const product = await Product.findById(req.params.id);
+    // console.log("pr92",product)
     if (product) {
       // update product fields
       product.name = name || product.name;
@@ -227,6 +228,7 @@ router.get("/", async (req, res) => {
       .sort(sort)
       .limit(Number(limit) || 0);
     res.json(products);
+    // console.log("PR231", products);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");

@@ -18,6 +18,7 @@ const Login = () => {
   // Get redirect parameter and check if it's checkout or something
   const redirect = new URLSearchParams(location.search).get("redirect") || "/";
   const isCheckoutRedirect = redirect.includes("checkout");
+  // console.log("Login20",user);
 
   useEffect(() => {
     if (user)
@@ -79,7 +80,7 @@ const Login = () => {
             Sign in
           </button>
           <p className="mt-6 text-center text-sm">
-            Don&apos;t have an account?{" "}
+            Don&apos;t have an account?
             <Link
               to={`/register?redirect=${encodeURIComponent(redirect)}`}
               className="text-blue-500"

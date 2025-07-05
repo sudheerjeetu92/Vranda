@@ -11,6 +11,7 @@ const uploadRoutes = require("./routes/uploadRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const productAdminRoutes = require("./routes/productAdminRoutes");
 const adminOrderRoutes = require("./routes/adminOrderRoutes");
+const paymentRoutes = require("./routes/payments.routes");
 
 
 const app= express();
@@ -23,10 +24,11 @@ const PORT=process.env.PORT || 3000;
 connectDB();
 
 app.get("/",(req,res)=>{
-res.send("Wel Rabbit Its API");    
+res.send("Welcome Rabbits Its API");    
 })
 
 // API Routes
+app.use("/api",paymentRoutes);
 app.use("/api/users",userRoutes);
 app.use("/api/products",productRoutes);
 app.use("/api/cart",cartRoutes);
