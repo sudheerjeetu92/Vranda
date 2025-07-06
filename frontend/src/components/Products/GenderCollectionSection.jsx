@@ -8,11 +8,16 @@ const GenderCollectionSection = () => {
       <div className="container ms-auto flex flex-col md:flex-row gap-8">
         {/* women collection */}
         <div className="relative flex-1">
-          <img
-            src={womenCollectionImage}
-            alt="Women-collection"
-            className="w-full h-[700px] object-cover"
-          />
+          <Link
+            to="/collections/all?gender=Women"
+            className="text-gray-900 underline"
+          >
+            <img
+              src={womenCollectionImage}
+              alt="Women-collection"
+              className="w-full h-[700px] object-cover"
+            />
+          </Link>
           <div className="absolute bottom-0 left-8 bg-white bg-opacity-90 py-4">
             <h2 className="text-2xl font-bold text-gray-900 mb-3">
               Women's Collection
@@ -27,11 +32,13 @@ const GenderCollectionSection = () => {
         </div>
         {/* men's collection */}
         <div className="relative flex-1">
-          <img
-            src={menCollectionImage}
-            alt="Men-collection"
-            className="w-full h-[700px] object-cover"
-          />
+          <Link to="/collections/all?gender=Men">
+            <img
+              src={menCollectionImage}
+              alt="Men-collection"
+              className="w-full h-[700px] object-cover"
+            />
+          </Link>
           <div className="absolute bottom-0 left-8 bg-white bg-opacity-90 py-4">
             <h2 className="text-2xl font-bold text-gray-900 mb-3">
               Men's Collection
