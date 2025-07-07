@@ -15,6 +15,7 @@ const NewArrivals = () => {
   const [newArrivals, setNewArrivals] = useState([]);
 
   useEffect(() => {
+    
     const fetchNewArrivals = async () => {
       try {
         const response = await axios.get(
@@ -30,8 +31,8 @@ const NewArrivals = () => {
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
-    setStartX(e.pageX - scrollRef.offsetLeft);
-    setCanScrollLeft(scrollRef.current.scrollLeft);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
   };
 
   const scroll = (direction) => {
@@ -43,28 +44,28 @@ const NewArrivals = () => {
 
   const updateScrollButtons = () => {
     const container = scrollRef.current;
-    // console.log("line 120",scrollRef.current.scrollBy);
     if (container) {
       const leftScroll = container.scrollLeft;
       const rightScrollable =
         container.scrollWidth > leftScroll + container.clientWidth;
       setCanScrollLeft(leftScroll > 0);
       setCanScrollRight(rightScrollable);
-      // console.log("134",rightScrollable);
+      // console.log("52",rightScrollable);
     }
-    //   console.log({
-    //     scrollLeft: container.scrollLeft,
-    //     clientWidth: container.clientWidth,
-    //     containerScrollerWidth: container.scrollWidth,
-    //     OFFSERLEFT: scrollRef.offsetLeft,
-    //   });
+      // console.log({
+      //   scrollLeft: container.scrollLeft,
+      //   clientWidth: container.clientWidth,
+      //   containerScrollerWidth: container.scrollWidth,
+      //   OFFSETLEFT: container.offsetLeft,
+      // });
   };
 
   const handleMouseMove = (e) => {
     if (!isDragging) return;
     const x = e.pageX - scrollRef.current.offsetLeft;
+    
     const walk = x - startX;
-    scrollRef.current.setCanScrollLeft = scrollRef.current - walk;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
   const handleMouseUpOrLeave = (e) => {
@@ -72,6 +73,8 @@ const NewArrivals = () => {
   };
 
   useEffect(() => {
+    
+    // console.log("NewA46", scrollRef);
     const container = scrollRef.current;
     if (container) {
       container.addEventListener("scroll", updateScrollButtons);
@@ -103,7 +106,8 @@ const NewArrivals = () => {
             <FiChevronsLeft className="text-2xl" />
           </button>
           <button
-            onClick={() => scroll("Right")}
+            onClick={() => scroll("right")}
+            disabled={!canScrollRight}
             className={`p-2 rounded border ${
               canScrollRight
                 ? "bg-white text-black"

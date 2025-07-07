@@ -8,7 +8,7 @@ const ProductGrid = ({ products, loading ,error }) => {
     return <p>Error:{error}</p>
   }
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {products.map((product, index) => (
         <Link key={index} to={`/product/${product._id}`} className="block">
           <div className="bg-white p-4 rounded-lg">
