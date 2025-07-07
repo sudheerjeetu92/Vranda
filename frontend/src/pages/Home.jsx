@@ -19,8 +19,8 @@ const Home = () => {
     //fetch product from specific collection
     dispatch(
       fetchProductsByFilters({
-        gender: "Women",
-        category: "Bottom Wear",
+        gender: "Men",
+        category: "Top Wear",
         limit: 8,
       })
     );
@@ -53,7 +53,7 @@ const Home = () => {
       
       <div>
         <h2 className="text-3xl text-center font-bold mb-4">
-          Top wears of women
+          Top wears of Men
         </h2>
         <ProductGrid products={products} loading={loading}  error={error} />
       </div>
