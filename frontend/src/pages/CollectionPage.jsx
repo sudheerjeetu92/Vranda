@@ -54,7 +54,7 @@ const CollectionPage = () => {
       <div className="lg:hidden p-4 bg-white border-b sticky top-0 z-40">
         <button
           onClick={toggleSideBAr}
-          className="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-700 p-2 rounded"
+          className="w-full flex items-center justify-center gap-2 bg-black text-white p-2 rounded"
         >
           <FaFilter /> <span>Filters</span>
         </button>
