@@ -30,7 +30,7 @@ export const loginUser = createAsyncThunk(
         `${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
         userData
       );
-      // console.log(typeof response.data.user);
+      // console.log("authsli33", response.data);
 
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       localStorage.setItem("userToken", response.data.token);
