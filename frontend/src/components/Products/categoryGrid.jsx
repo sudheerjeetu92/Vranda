@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 import { useDispatch } from "react-redux";
+import bottomMen from "../../assets/bottomMen.webp";
+import collarTShirt from "../../assets/collarTShirt.webp";
+import jacketMen from "../../assets/jacketMen.webp";
+import t_shirt_man from "../../assets/t_shirt_man.webp";
+import airForceCombat from "../../assets/airForceCombat.webp";
+import FullSleeveMen from "../../assets/FullSleeveMen.webp";
+import traksuits from "../../assets/traksuits.webp";
+import WomenTights from "../../assets/WomanTights.webp";
+import accessories from "../../assets/accessories.webp";
 import { useNavigate } from "react-router-dom";
 import {
   setFilters,
@@ -25,22 +33,22 @@ const CategoryGrid = () => {
   const categories = [
     {
       name: "T-Shirt",
-      image: "https://picsum.photos/500/500?random=1",
+      image: t_shirt_man,
       categoryAddress: "T shirt",
     },
     {
-      name: "Round Neck",
-      image: "https://picsum.photos/500/500?random=2",
+      name: "Full Sleeve",
+      image: FullSleeveMen,
       categoryAddress: "Round Neck",
     },
     {
       name: "Collar T-Shirt",
-      image: "https://picsum.photos/500/500?random=3",
+      image: collarTShirt,
       categoryAddress: "Collar T-Shirt",
     },
     {
       name: "Bottom Wear Men",
-      image: "https://picsum.photos/500/500?random=4",
+      image:  bottomMen ,
       categoryAddress: "Bottom Wear Men",
     },
     {
@@ -50,27 +58,27 @@ const CategoryGrid = () => {
     },
     {
       name: "Jackets",
-      image: "https://picsum.photos/500/500?random=6",
+      image: jacketMen,
       categoryAddress: "jackets",
     },
     {
       name: "Women Bottom",
-      image: "https://picsum.photos/500/500?random=7",
+      image: WomenTights,
       categoryAddress: "Women Bottom",
     },
     {
       name: "Shoes",
-      image: "https://picsum.photos/500/500?random=8",
+      image: airForceCombat,
       categoryAddress: "Shoes",
     },
     {
       name: "Accessories",
-      image: "https://picsum.photos/500/500?random=9",
+      image: accessories,
       categoryAddress: "Accessories",
     },
     {
       name: "Tracksuits",
-      image: "https://picsum.photos/500/500?random=10",
+      image: traksuits,
       categoryAddress: "Tracksuits",
     },
   ];
