@@ -84,7 +84,7 @@ const CategoryGrid = () => {
   ];
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 py-10">
+    <div className="max-w-screen-xl mx-auto px-4 py-2">
       {/* Search Input */}
       <form onSubmit={handleSearch}>
         <div className="mb-6">
