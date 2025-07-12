@@ -19,6 +19,25 @@ const CollectionPage = () => {
   const sideBarRef = useRef(null);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const deltaX = touchStartX.current - touchEndX.current;
+    if (deltaX > 50) {
+      // Swiped left
+      setIsSideBarOpen(false);
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchProductsByFilters({ collection, ...queryParams }));
   }, [dispatch, collection, searchParams]);
@@ -63,6 +82,9 @@ const CollectionPage = () => {
       {/* Sidebar (Hidden on mobile, visible on large screens) */}
       <div
         ref={sideBarRef}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         className={`
       bg-white overflow-y-auto transition-transform duration-300 ease-in-out
       fixed inset-y-0 left-0 w-64 z-50 transform

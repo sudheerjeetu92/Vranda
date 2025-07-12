@@ -109,7 +109,7 @@ export const mergeCart = createAsyncThunk(
           },
         }
       );
-      console.log("cartsl112",response);
+      // console.log("cartsl112",response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
