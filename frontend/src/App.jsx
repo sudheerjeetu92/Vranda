@@ -21,6 +21,8 @@ import OrderManagement from "./components/Admin/OrderManagement";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import ProtectedRoutes from "./components/common/ProtectedRoutes";
+import ContactUs from "./pages/ContactUs";
+import AboutUs from "./pages/AboutUs";
 
 const App = () => {
   return (
@@ -30,6 +32,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<UserLayout />}>
             <Route index element={<Home />} />
+            <Route path="contactUs" element={<ContactUs />} />
+            <Route path="aboutUs" element={<AboutUs />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="profile" element={<Profile />} />
