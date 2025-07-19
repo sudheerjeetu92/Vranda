@@ -17,6 +17,7 @@ const CollectionPage = () => {
   const queryParams = Object.fromEntries([...searchParams]);
 
   const sideBarRef = useRef(null);
+  // console.log("colPg20",sideBarRef.current);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
   const touchStartX = useRef(0);
@@ -46,10 +47,12 @@ const CollectionPage = () => {
     setIsSideBarOpen(!isSideBarOpen);
   };
 
-  // console.log("collectonoage line 14", sideBarRef.current);
   const handleClickOutSide = (e) => {
+    // console.log("collectonoage line 50",e.target);
+    // console.log("collectonoage line 51",sideBarRef.current.contains(e.target));
+    // console.log("collectonoage line 52",sideBarRef.current);
     if (sideBarRef.current && !sideBarRef.current.contains(e.target)) {
-      // console.log("collectonoage line 18", sideBarRef.current);
+      // console.log("collectonoage line 54", sideBarRef.current.contains(e.target));
       setIsSideBarOpen(false);
     }
   };

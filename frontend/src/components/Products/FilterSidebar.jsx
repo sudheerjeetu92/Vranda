@@ -3,6 +3,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const FilterSidebar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  // console.log([...searchParams]);
+  // console.log(searchParams);
   const navigate = useNavigate();
   const [filters, setFilters] = useState({
     category: "",
@@ -12,10 +14,10 @@ const FilterSidebar = () => {
     material: [],
     brand: [],
     minPrice: 0,
-    maxPrice: 1000,
+    maxPrice: 10000,
   });
 
-  const [priceRange, setPriceRange] = useState([0, 100]);
+  const [priceRange, setPriceRange] = useState([0, 10000]);
   // x.com/a=1&b=2
   const categories = ["Top Wear", "Bottom Wear"];
 
@@ -33,9 +35,9 @@ const FilterSidebar = () => {
     "Gray",
   ];
   const materials = [
-    "Wood",
-    "Steel",
-    "Concrete",
+    "Polyester",
+    "Cotton",
+    "Leather",
     "Plastic",
     "Glass",
     "Aluminum",
@@ -44,14 +46,15 @@ const FilterSidebar = () => {
     "Copper",
   ];
 
-  const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
+  const sizes = ["XS", "S", "M", "L", "XL", "XXL", "7", "8", "9", "10", "11"];
 
-  const brands = ["Nike", "Apple", "Adidas", "Samsung", "Sony", "Tesla"];
+  const brands = ["Nike", "Apple", "Adidas", "Samsung", "Sony", "Technosport"];
 
-  const genders = ["Men", "Women"];
+  const genders = ["Men", "Women", "Unisex"];
 
   useEffect(() => {
     const params = Object.fromEntries([...searchParams]);
+    // console.log(Object.fromEntries([...searchParams]));
     //The spread syntax (...) is useful when you want to create a new array from an existing iterable, it makes shallow copy of searchParams.The spread syntax ([...entries]) is used to create a shallow copy of the array of key-value pairs.
 
     // Using Object.fromEntries([...entries]), you take the array,[['a', 1], ['b', 2], ['c', 3]], of key-value pairs and convert it back into an object: { a: 1, b: 2, c: 3 }.
@@ -64,14 +67,14 @@ const FilterSidebar = () => {
       material: params.material ? params.material.split(",") : [],
       brand: params.brand ? params.brand.split(",") : [],
       minPrice: params.minPrice || 0,
-      maxPrice: params.maxPrice || 1000,
+      maxPrice: params.maxPrice || 10000,
     });
-    setPriceRange([0, params.maxPrice || 1000]);
+    setPriceRange([0, params.maxPrice || 10000]);
   }, [searchParams]);
 
   const handleFilterChange = (e) => {
     const { name, value, checked, type } = e.target;
-    // console.log("ge",e.target.checked);
+    // console.log("FiS77",e.target);
 
     // console.log(e);
     // console.log({ name, value, checked, type });
@@ -122,7 +125,7 @@ const FilterSidebar = () => {
 
   const handlePriceChange = (e) => {
     const newPrice = e.target.value;
-    setPriceRange([0, 1000]);
+    setPriceRange([0, 10000]);
     const newFilters = { ...filters, minPrice: 0, maxPrice: newPrice };
     setFilters(newFilters);
     updateURLParams(newFilters);
@@ -194,12 +197,10 @@ const FilterSidebar = () => {
         <label className="block text-gray-600 font-medium mb-2">material</label>
         {materials.map((material) => (
           <div key={material} className="flex items-center mb-1">
-            
             <input
               type="checkbox"
               name="material"
               className="mr-2 h-4 w-4  text-blue-500 focus:ring-blue-400 border-gray-400"
-              
               value={material}
               checked={filters.material.includes(material)}
               onChange={handleFilterChange}
@@ -253,7 +254,7 @@ const FilterSidebar = () => {
           type="range"
           name="priceRange"
           min={0}
-          max={1000}
+          max={10000}
           value={priceRange[1]}
           onChange={handlePriceChange}
           className="w-full h-2 bg-gray-300 rounded-lg appearance-none"

@@ -48,7 +48,7 @@ const ProductDetails = ({ productId }) => {
   const handleAddToCart = () => {
     if (!selectedColor || !selectedSize) {
       toast.error("please select a size and color before adding to cart.", {
-        duration: 1000,
+        duration: 3000,
       });
       return;
     }
@@ -112,7 +112,7 @@ const ProductDetails = ({ productId }) => {
               </div>
             </div>
             {/* Mobile Thumbnail */}
-            <div className="md:hidden flex overscroll-x-scroll space-x-4 mb-4">
+            <div className="md:hidden flex overscroll-x-auto space-x-4 mb-4">
               {selectedProduct.images.map((image, index) => (
                 <img
                   key={index}

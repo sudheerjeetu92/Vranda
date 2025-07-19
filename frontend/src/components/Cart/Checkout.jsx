@@ -110,7 +110,7 @@ const CheckOut = () => {
       );
 
       const data = res.data;
-      console.log("cheout130", data);
+      // console.log("cheout130", data);
 
       if (typeof window.Razorpay === "undefined") {
         alert("Razorpay SDK not available.");
@@ -123,7 +123,7 @@ const CheckOut = () => {
         ...data,
 
         handler: async function (response) {
-          console.log("cho127", response);
+          // console.log("cho127", response);
 
           const option2 = {
             order_id: response.razorpay_order_id,
@@ -135,7 +135,7 @@ const CheckOut = () => {
             option2
           );
 
-          console.log("cho139:verifyRes", verifyRes);
+          // console.log("cho139:verifyRes", verifyRes);
 
           if (verifyRes.data.success) {
             handlePaymentSuccess("abc", checkoutId);
@@ -158,10 +158,11 @@ const CheckOut = () => {
         createCheckout({
           checkoutItems: cart.products,
           shippingAddress,
-          paymentMethod: "Paypal",
+          paymentMethod: "Razorpay",
           totalPrice: cart.totalPrice,
         })
       );
+      // console.log("chekout165", res);
       if (res.payload && res.payload._id) {
         // console.log("cho20", res.payload);
         setCheckoutId(res.payload._id); //Set checkout ID if checkout was successful
@@ -303,7 +304,10 @@ const CheckOut = () => {
               required
             />
           </div>
-          <button className="w-full bg-black text-white py-3 rounded">
+          <button
+            type="submit"
+            className="w-full bg-black text-white py-3 rounded"
+          >
             Continue to Payment
           </button>
 
