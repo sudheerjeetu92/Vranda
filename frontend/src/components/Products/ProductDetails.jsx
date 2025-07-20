@@ -142,26 +142,38 @@ const ProductDetails = ({ productId }) => {
               <p className="text-gray-600 mb-4">
                 {selectedProduct.description}
               </p>
-              <div className="mb-4 ">
-                <p className="text-gray-700"> Color:</p>
-                <div className="flex gap-2  mt-2">
-                  {selectedProduct.colors.map((color) => (
-                    <button
-                      key={color}
-                      onClick={() => {
-                        setSelectedColor(color);
-                      }}
-                      className={`w-8 h-8 rounded-full border ${
-                        selectedColor === color
-                          ? "border-4 border-black"
-                          : "border-gray-300"
-                      }`}
-                      style={{
-                        backgroundColor: color.toLowerCase(),
-                        filter: "brightness(0.5)",
-                      }}
-                    ></button>
-                  ))}
+
+              <div className="mb-4">
+                <p className="text-gray-700">Color:</p>
+                <div className="flex gap-4 mt-2 flex-wrap">
+                  {selectedProduct.colors.map((color, index) => {
+                    const colorName =
+                      selectedProduct.colorsName &&
+                      selectedProduct.colorsName[index]
+                        ? selectedProduct.colorsName[index]
+                        : color;
+
+                    return (
+                      <div
+                        key={color}
+                        className="flex flex-col items-center space-y-1"
+                      >
+                        <button
+                          onClick={() => setSelectedColor(color)}
+                          className={`w-8 h-8 rounded-full border ${
+                            selectedColor === color
+                              ? "border-4 border-black"
+                              : "border-gray-300"
+                          }`}
+                          style={{
+                            backgroundColor: color.toLowerCase(),
+                            filter: "brightness(0.5)",
+                          }}
+                        ></button>
+                        <p className="text-xs text-center">{colorName}</p>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -250,8 +262,7 @@ const ProductDetails = ({ productId }) => {
             />
           </div>
         </div>
-      )
-      }
+      )}
     </div>
   );
 };

@@ -23,6 +23,7 @@ const EditProductPage = () => {
     brand: "",
     sizes: [],
     colors: [],
+    colorsName: [],
     collections: "",
     material: "",
     gender: "",
@@ -191,6 +192,28 @@ const EditProductPage = () => {
             className="w-full border border-gray-300 rounded-md p-2"
           />
         </div>
+        {/* Color Names */}
+        <div className="mb-6">
+          <label className="block font-semibold mb-2">
+            Color Names (Comma-separated)
+          </label>
+          <input
+            type="text"
+            name="colorsName"
+            value={productData.colorsName.join(",")}
+            onChange={(e) =>
+              setProductData({
+                ...productData,
+                colorsName: e.target.value
+                  .split(",")
+                  .map((name) => name.trim()),
+              })
+            }
+            className="w-full border border-gray-300 rounded-md p-2"
+            placeholder="e.g. Cherry Red, Ocean Blue, Midnight Black"
+          />
+        </div>
+
         {/* image */}
         <div className="mb-6">
           <label className="block font-semibold mb-2">Upload Image</label>

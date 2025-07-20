@@ -73,6 +73,7 @@ router.put("/:id", protect, admin, async (req, res) => {
       brand,
       sizes,
       colors,
+      colorsName,
       collection,
       material,
       gender,
@@ -91,6 +92,7 @@ router.put("/:id", protect, admin, async (req, res) => {
       product.brand = brand || product.brand;
       product.sizes = sizes || product.sizes;
       product.colors = colors || product.colors;
+      product.colorsName = colorsName || product.colorsName;
       product.collection = collection || product.collection;
       product.material = material || product.material;
       product.gender = gender || product.gender;

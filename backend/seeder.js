@@ -35,7 +35,6 @@ const seedData = async () => {
     // Insert the products into the database
     await Product.insertMany(sampleProducts);
 
-
     console.log("Products data saved successfully");
     process.exit();
   } catch (error) {
@@ -45,3 +44,33 @@ const seedData = async () => {
 };
 
 seedData();
+
+// // rabbit-backend-seeder.js
+// require("dotenv").config();
+// const connectDB = require("../backend/config/db");
+// const mongoose = require("mongoose");
+// const Product = require("./models/Product"); // Adjust the path if needed
+
+// // Replace with your actual MongoDB connection string
+// // const MONGO_URI = "mongodb://127.0.0.1:27017/yourdbname"; // or from .env
+
+// const seedColorsName = async () => {
+//   try {
+//     await connectDB(); // Connect to MongoDB using your reusable function
+
+//     const result = await Product.updateMany(
+//       { colorsName: { $exists: false } },
+//       { $set: { colorsName: [] } } // or you can populate based on logic
+//     );
+
+//     console.log(`✅ Updated ${result.modifiedCount} products`);
+//   } catch (error) {
+//     console.error("❌ Seeding error:", error);
+//   } finally {
+//     await mongoose.disconnect();
+//     console.log("🔌 MongoDB disconnected");
+//     process.exit(0);
+//   }
+// };
+
+// seedColorsName();
