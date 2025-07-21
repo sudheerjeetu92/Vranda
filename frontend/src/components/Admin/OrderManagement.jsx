@@ -19,6 +19,11 @@ const OrderManagement = () => {
     }
   }, [dispatch,user, navigate]);
 
+
+  const handleRowClick = (orderId) => {
+    navigate(`/order/${orderId}`);
+  };
+
   const handleStatusChange = (orderId, status) => {
     // console.log({ id: orderID, status });
     dispatch(updateOrderStatus({ id: orderId, status }));
@@ -44,6 +49,8 @@ const OrderManagement = () => {
               orders.map((order) => (
                 <tr
                   key={order._id}
+                  
+                  onClick={() => handleRowClick(order._id)}
                   className="border-b hover:bg-gray-50 cursor-pointer"
                 >
                   <td className="py-4 px-4 font-medium text-gray-900 whitespace-nowrap">

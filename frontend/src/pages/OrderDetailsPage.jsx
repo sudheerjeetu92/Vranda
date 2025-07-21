@@ -80,6 +80,8 @@ const OrderDetailsPage = () => {
                   <th className="py-2 px-4">Name</th>
                   <th className="py-2 px-4">Unit Price</th>
                   <th className="py-2 px-4">Quantity</th>
+                  <th className="py-2 px-4">Size</th>
+                  <th className="py-2 px-4">Color</th>
                   <th className="py-2 px-4">Total</th>
                 </tr>
               </thead>
@@ -101,6 +103,8 @@ const OrderDetailsPage = () => {
                     </td>
                     <td className="py-2 px-4">Rs{item.price}</td>
                     <td className="py-2 px-4">{item.quantity}</td>
+                    <td className="py-2 px-4">{item.size}</td>
+                    <td className="py-2 px-4">{item.color}</td>
                     <td className="py-2 px-4">
                       Rs{item.price * item.quantity}
                     </td>
