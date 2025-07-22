@@ -4,6 +4,7 @@ import register from "../assets/register.webp";
 import { registerUser } from "../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { mergeCart } from "../redux/slices/cartSlice";
+import { toast } from "sonner"; //
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -31,11 +32,19 @@ const Register = () => {
       }
   }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch]);
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // console.log("rr",name,email,password);
+  //   dispatch(registerUser({name, email, password}));
+  //   // console.log("user Register:",{name,email,password});
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("rr",name,email,password);
-    dispatch(registerUser({name, email, password}));
-    // console.log("user Register:",{name,email,password});
+
+    const result = await dispatch(registerUser({ name, email, password }));
+    // console.log(result.payload.message);
+    toast.error(result.payload.msg);
   };
 
   return (
@@ -92,7 +101,10 @@ const Register = () => {
           </button>
           <p className="mt-6 text-center text-sm">
             Don't have an account?{" "}
-            <Link to={`/login?redirect=${encodeURIComponent(redirect)}`} className="text-blue-500">
+            <Link
+              to={`/login?redirect=${encodeURIComponent(redirect)}`}
+              className="text-blue-500"
+            >
               Login
             </Link>
           </p>

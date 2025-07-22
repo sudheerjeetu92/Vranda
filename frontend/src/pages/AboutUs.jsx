@@ -29,7 +29,7 @@ const AboutUs = () => {
         <h2 className="text-3xl font-semibold mb-8 text-center">Meet Our Team</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center">
           {[
-            { name: 'Metafit', role: 'Founder & CEO' },
+            { name: 'KapIl Lavania', role: 'Founder & CEO' },
             { name: 'Priya Mehta', role: 'Marketing Head' },
             { name: 'Rahul Verma', role: 'Lead Developer' },
           ].map((member, i) => (

@@ -55,7 +55,7 @@ export const registerUser = createAsyncThunk(
 
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
       localStorage.setItem("userToken", response.data.token);
-      // console.log("dsd",response);
+      // console.log("As58",response);
       return response.data.user; // Return the user object from the response
     } catch (error) {
       return rejectWithValue(error.response.data);

@@ -19,14 +19,14 @@ const ContactUs = () => {
         <div className="flex flex-col items-center">
           <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Call" className="h-12 mb-4" />
           <p className="text-gray-400 uppercase text-sm">Call Us</p>
-          <p className="font-medium mt-1">9982498555</p>
+          <p className="font-medium mt-1">9818671912</p>
         </div>
 
         {/* Email Us */}
         <div className="flex flex-col items-center">
           <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Email" className="h-12 mb-4" />
           <p className="text-gray-400 uppercase text-sm">Email Us</p>
-          <p className="font-medium mt-1">info@metafitwellness.com</p>
+          <p className="font-medium mt-1">info@gmail.com</p>
         </div>
 
         {/* Store Hours */}
@@ -41,7 +41,7 @@ const ContactUs = () => {
           <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Location" className="h-12 mb-4" />
           <p className="text-gray-400 uppercase text-sm">Visit Us</p>
           <p className="font-medium mt-1 text-center">
-            808,silver residency ,near petrol pump, thoor ,Udaipur,<br /> Rajasthan, India, 313001
+            Chamunda Colony , Foy Sagar Road ,<br /> Rajasthan, India, 35---03
           </p>
         </div>
       </div>
