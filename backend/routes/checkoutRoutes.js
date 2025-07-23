@@ -13,7 +13,7 @@ const router = express.Router();
 // @desc Create a new checkout session
 // @access Private
 
-router.post("/", protect, validate(checkoutSchema), async (req, res) => {
+router.post("/", protect, async (req, res) => {
   const { checkoutItems, shippingAddress, paymentMethod, totalPrice } =
     req.body;
   if (!checkoutItems || checkoutItems.length === 0) {

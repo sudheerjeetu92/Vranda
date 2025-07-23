@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { createCheckout } from "../../redux/slices/checkoutSlice";
 import axios from "axios";
 import { toast } from "sonner";
-import checkoutSchema from "../../../../backend/validators/checkout-validator";
 
 const CheckOut = () => {
   const dispatch = useDispatch();

@@ -49,7 +49,11 @@ const Login = () => {
         error.errors.forEach((err) => toast.error(err.message));
       } else if (error?.msg) {
         toast.error(error.msg);
-      } else {
+      }
+      // else if(undefined){
+
+      // }
+      else {
         toast.error("Login failed. Please try again.");
       }
     }
