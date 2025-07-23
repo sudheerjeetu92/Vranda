@@ -3,6 +3,7 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const {protect} = require("../middleware/authMiddleware")
 const registerSchema = require("../validators/auth-validator")
+const loginSchema = require("../validators/login-validator")
 const validate = require("../middleware/validate-middleware")
 
 const router = express.Router();
@@ -60,7 +61,7 @@ router.post("/register", validate(registerSchema),async (req, res) => {
 // @desc Authenticate user
 // @access Public
 
-router.post("/login", async (req, res) => {
+router.post("/login", validate(loginSchema),async (req, res) => {
   const { email, password } = req.body;
   try {
     let user = await User.findOne({ email });

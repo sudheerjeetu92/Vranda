@@ -32,20 +32,20 @@ const Register = () => {
       }
   }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch]);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // console.log("rr",name,email,password);
-  //   dispatch(registerUser({name, email, password}));
-  //   // console.log("user Register:",{name,email,password});
-  // };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    const result = await dispatch(registerUser({ name, email, password }));
-    // console.log(result.payload.message);
-    toast.error(result.payload.msg);
+    // console.log("rr",name,email,password);
+    dispatch(registerUser({name, email, password}));
+    // console.log("user Register:",{name,email,password});
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const result = await dispatch(registerUser({ name, email, password }));
+  //   // console.log(result.payload.message);
+  //   toast.error(result.payload.msg);
+  // };
 
   return (
     <div className="flex">

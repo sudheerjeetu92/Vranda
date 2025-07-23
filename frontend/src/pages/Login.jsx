@@ -5,6 +5,7 @@ import { loginUser } from "../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import { mergeCart } from "../redux/slices/cartSlice";
+import { toast } from "sonner";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -31,11 +32,20 @@ const Login = () => {
       }
   }, [user, guestId, cart, navigate, isCheckoutRedirect, dispatch]);
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // console.log("user Login:", { email, password });
+  //   dispatch(loginUser({ email, password }));
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("user Login:", { email, password });
-    dispatch(loginUser({ email, password }));
+
+    const result = await dispatch(loginUser({email, password }));
+    console.log(result.payload.msg);
+    toast.error(result.payload.msg);
   };
+
 
   return (
     <div className="flex">
