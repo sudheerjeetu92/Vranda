@@ -41,11 +41,19 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const result = await dispatch(loginUser({email, password }));
-    console.log(result.payload.msg);
-    toast.error(result.payload.msg);
-  };
+    const result = await dispatch(loginUser({ email, password }));
 
+    if (loginUser.rejected.match(result)) {
+      const error = result.payload;
+      if (error?.errors) {
+        error.errors.forEach((err) => toast.error(err.message));
+      } else if (error?.msg) {
+        toast.error(error.msg);
+      } else {
+        toast.error("Login failed. Please try again.");
+      }
+    }
+  };
 
   return (
     <div className="flex">

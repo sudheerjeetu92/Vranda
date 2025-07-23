@@ -1,17 +1,17 @@
 const express = require("express");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
-const {protect} = require("../middleware/authMiddleware")
-const registerSchema = require("../validators/auth-validator")
-const loginSchema = require("../validators/login-validator")
-const validate = require("../middleware/validate-middleware")
+const { protect } = require("../middleware/authMiddleware");
+const registerSchema = require("../validators/auth-validator");
+const loginSchema = require("../validators/login-validator");
+const validate = require("../middleware/validate-middleware");
 
 const router = express.Router();
 
 // @route POST /api/users/register
 // @desc Register a new user
 // access Public
-router.post("/register", validate(registerSchema),async (req, res) => {
+router.post("/register", validate(registerSchema), async (req, res) => {
   const { name, email, password } = req.body;
   // console.log("dsf",name);
   try {
@@ -34,23 +34,19 @@ router.post("/register", validate(registerSchema),async (req, res) => {
     // console.log("wece",payload);
 
     // sign and return the token along with user data
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      (err, token) => {
-        if (err) throw err;
-        // send the user and token in response
-        res.status(201).json({
-          user: {
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-          },
-          token,
-        });
-      }
-    );
+    jwt.sign(payload, process.env.JWT_SECRET, (err, token) => {
+      if (err) throw err;
+      // send the user and token in response
+      res.status(201).json({
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        },
+        token,
+      });
+    });
   } catch (error) {
     console.log(error);
     res.status(500).send("Server Error");
@@ -61,7 +57,7 @@ router.post("/register", validate(registerSchema),async (req, res) => {
 // @desc Authenticate user
 // @access Public
 
-router.post("/login", validate(loginSchema),async (req, res) => {
+router.post("/login", validate(loginSchema), async (req, res) => {
   const { email, password } = req.body;
   try {
     let user = await User.findOne({ email });
@@ -103,7 +99,7 @@ router.post("/login", validate(loginSchema),async (req, res) => {
 // @desc get logged-in user's profile(protected  Route)
 // @access Private
 
-router.get("/profile", protect ,  async (req, res) => {
+router.get("/profile", protect, async (req, res) => {
   res.json(req.user);
 });
 module.exports = router;

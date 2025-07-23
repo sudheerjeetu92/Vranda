@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { createCheckout } from "../../redux/slices/checkoutSlice";
 import axios from "axios";
+import { toast } from "sonner";
+import checkoutSchema from "../../../../backend/validators/checkout-validator";
 
 const CheckOut = () => {
   const dispatch = useDispatch();
@@ -44,7 +46,7 @@ const CheckOut = () => {
   }, [loadScript]);
 
   const handlePaymentSuccess = async (details, checkoutId) => {
-    console.log("co146", details);
+    // console.log("co146", details);
     try {
       const response = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/checkout/${checkoutId}/pay`,
@@ -56,7 +58,7 @@ const CheckOut = () => {
         }
       );
 
-      console.log("cho60", response);
+      // console.log("cho60", response);
       if (response.status === 201) {
         const handleFinalizeCheckout = async (checkoutId) => {
           try {
@@ -169,7 +171,8 @@ const CheckOut = () => {
           totalPrice: cart.totalPrice,
         })
       );
-      // console.log("chekout165", res);
+
+            // console.log("chekout165", res);
       if (res.payload && res.payload._id) {
         // console.log("cho20", res.payload);
         setCheckoutId(res.payload._id); //Set checkout ID if checkout was successful
@@ -179,6 +182,8 @@ const CheckOut = () => {
     }
     // setCheckoutId(123); //Set checkout ID if checkout was successful
   };
+
+  
 
   if (loading) return <p> Loading cart...</p>;
   if (error) return <p> Error: {error}</p>;
@@ -317,39 +322,6 @@ const CheckOut = () => {
           >
             Continue to Payment
           </button>
-
-          {/* 
-          <div className="mt-6">
-            {!checkoutId ? (
-              <button className="w-full bg-black text-white py-3 rounded"  
-              // onClick={() => {
-              //     onPayment();
-              //   }}
-              >
-                Continue to Payment
-              </button>
-            ) : (
-              <button
-                type="button"
-                className="w-full bg-black text-white py-3 rounded"
-                // onClick={() => {
-                //   onPayment();
-                // }}
-              >
-                Razorpay Payment
-              </button>
-              // <div>
-              //   <h3 className="text-lg mb-4">Pay with Paypal</h3>
-              //   <PayPalButton
-              //     amount={cart.totalPrice}
-              //     onSuccess={handlePaymentSuccess}
-              //     onError={(err) => {
-              //       alert("payent failed. Try again");
-              //     }}
-              //   />
-              // </div>
-            )}
-          </div> */}
         </form>
       </div>
 
@@ -396,23 +368,3 @@ const CheckOut = () => {
 };
 
 export default CheckOut;
-
-// const cart = {
-//   products: [
-//     {
-//       name: "Stylish Jacket",
-//       size: "M",
-//       color: "Black",
-//       price: 120,
-//       image: "https://picsum.photos/150?random=1",
-//     },
-//     {
-//       name: "Casual Sneakers",
-//       size: "42",
-//       color: "White",
-//       price: 76,
-//       image: "https://picsum.photos/150?random=1",
-//     },
-//   ],
-//   totalPrice: 195,
-// };

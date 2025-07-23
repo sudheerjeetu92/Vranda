@@ -4,13 +4,16 @@ const Checkout = require("../models/Checkout");
 const Cart = require("../models/Cart");
 const Order = require("../models/Order");
 const { protect, admin } = require("../middleware/authMiddleware");
+const { checkoutSchema } = require("../validators/checkout-validator");
+
+const validate = require("../middleware/validate-middleware");
 const router = express.Router();
 
 // @route POST / api/ checkout
 // @desc Create a new checkout session
 // @access Private
 
-router.post("/", protect, async (req, res) => {
+router.post("/", protect, validate(checkoutSchema), async (req, res) => {
   const { checkoutItems, shippingAddress, paymentMethod, totalPrice } =
     req.body;
   if (!checkoutItems || checkoutItems.length === 0) {
