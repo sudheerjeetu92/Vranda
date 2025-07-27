@@ -19,9 +19,9 @@ const CheckOut = () => {
     lastName: "",
     address: "",
     city: "",
-    postalCode: 313001,
+    postalCode: "313001",
     country: "INDIA",
-    phone: 0,
+    phone: "",
   });
 
   //  ensure cart is not loaded before proceeding
