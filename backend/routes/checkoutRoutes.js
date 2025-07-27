@@ -4,7 +4,6 @@ const Checkout = require("../models/Checkout");
 const Cart = require("../models/Cart");
 const Order = require("../models/Order");
 const { protect, admin } = require("../middleware/authMiddleware");
-const { checkoutSchema } = require("../validators/checkout-validator");
 
 const validate = require("../middleware/validate-middleware");
 const router = express.Router();

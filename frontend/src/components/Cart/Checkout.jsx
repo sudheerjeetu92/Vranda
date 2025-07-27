@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { createCheckout } from "../../redux/slices/checkoutSlice";
 import axios from "axios";
 import { toast } from "sonner";
+import checkoutSchema from "../../checkout-schema";
 
 const CheckOut = () => {
   const dispatch = useDispatch();
@@ -18,9 +19,9 @@ const CheckOut = () => {
     lastName: "",
     address: "",
     city: "",
-    postalCode: "",
-    country: "",
-    phone: "",
+    postalCode: 313001,
+    country: "INDIA",
+    phone: 0,
   });
 
   //  ensure cart is not loaded before proceeding
@@ -161,6 +162,31 @@ const CheckOut = () => {
   // console.log("cho-cart", cart);
   const handleCreateCheckout = async (e) => {
     e.preventDefault();
+    const formData = {
+      email: user ? user.email : "",
+      shippingAddress,
+    };
+
+    const result = checkoutSchema.safeParse(formData);
+    // console.log("chko171",result.error.format());
+    if (!result.success) {
+      const errors = result.error.format();
+
+      // Show toast for the first available error
+      const firstError =
+        errors.email?._errors[0] ||
+        errors.shippingAddress?.firstName?._errors[0] ||
+        errors.shippingAddress?.lastName?._errors[0] ||
+        errors.shippingAddress?.address?._errors[0] ||
+        errors.shippingAddress?.city?._errors[0] ||
+        errors.shippingAddress?.postalCode?._errors[0] ||
+        errors.shippingAddress?.country?._errors[0] ||
+        errors.shippingAddress?.phone?._errors[0];
+
+      if (firstError) toast.error(firstError);
+      return; // 🛑 Stop here if validation fails
+    }
+
     if (cart && cart.products.length > 0) {
       const res = await dispatch(
         createCheckout({
@@ -171,7 +197,7 @@ const CheckOut = () => {
         })
       );
 
-            // console.log("chekout165", res);
+      // console.log("chekout165", res);
       if (res.payload && res.payload._id) {
         // console.log("cho20", res.payload);
         setCheckoutId(res.payload._id); //Set checkout ID if checkout was successful
@@ -181,8 +207,6 @@ const CheckOut = () => {
     }
     // setCheckoutId(123); //Set checkout ID if checkout was successful
   };
-
-  
 
   if (loading) return <p> Loading cart...</p>;
   if (error) return <p> Error: {error}</p>;
